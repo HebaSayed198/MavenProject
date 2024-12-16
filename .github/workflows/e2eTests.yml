@@ -50,8 +50,7 @@ jobs:
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
 
-      - name: Execute Tests
-        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
+    
           
 
   E2E_Edge_Windows_Test:
@@ -96,5 +95,4 @@ jobs:
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
           
-      - name: Execute Tests
-        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
+     
