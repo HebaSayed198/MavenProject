@@ -50,6 +50,10 @@ jobs:
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
 
+      - name: Execute Tests
+        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
+          
+
   E2E_Edge_Windows_Test:
     runs-on: windows-latest
     permissions:
@@ -91,3 +95,6 @@ jobs:
           name: Tests Report Edge_Windows
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
+          
+      - name: Execute Tests
+        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
