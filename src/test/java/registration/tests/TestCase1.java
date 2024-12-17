@@ -4,6 +4,8 @@ import Utilities.JsonFileManager;
 import Utilities.PropertiesReader;
 import io.qameta.allure.Severity;
 import org.openqa.selenium.WebDriver;
+import Utilities.DriverFacrory;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +28,7 @@ public class TestCase1 {
     public void setup(){
 //        driver=new ChromeDriver();
 //        driver.manage().window().maximize();
-        driver = initiateDriver(System.getProperty("browserName"), true);
+        driver = DriverFacrory.initiateDriver(System.getProperty("browserName"),true,Boolean.parseBoolean(System.getProperty("headless", "false")));
         jsonFileManager = new JsonFileManager("D:\\Users\\hiba.makboul\\Desktop\\RegistrationForm\\src\\test\\resources\\TestData.json");
         homePage = new HomePage(driver);
         signupOrLoginPage = new SignupOrLoginPage(driver);
