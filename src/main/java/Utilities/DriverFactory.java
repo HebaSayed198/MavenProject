@@ -5,27 +5,46 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class DriverFactory {
     static WebDriver driver;
-    @Step("Initializing new driver ")
-    public static WebDriver initializingDriver(String browserName,boolean maximize,boolean headlessExecution){
 
-        if(browserName.equalsIgnoreCase("chrome")) {
-            driver=new ChromeDriver();
-        } else if (browserName.equalsIgnoreCase("firefox")) {
-            driver = new FirefoxDriver();
+    @Step("Initializing WebDriver for browser: {browserName}, headless: {headlessExecution}")
+    public static WebDriver initializingDriver(String browserName, boolean maximize, boolean headlessExecution) {
+
+        if (browserName == null || browserName.isEmpty()) {
+            throw new IllegalArgumentException("Browser name cannot be null or empty.");
         }
-        else if (browserName.equalsIgnoreCase("chrome") && headlessExecution) {
-            System.out.println("HeadLess Chrome Driver initialized");
-            ChromeOptions options= new ChromeOptions();
-            options.addArguments("headless");
-            driver = new ChromeDriver(options);
-            System.out.println("Title is: " +driver.getTitle());
-            System.out.println("Headless Chrome Driver run started");
+
+        switch (browserName.toLowerCase()) {
+            case "chrome":
+                ChromeOptions chromeOptions = new ChromeOptions();
+                if (headlessExecution) {
+                    chromeOptions.addArguments("--headless");
+                    System.out.println("Headless Chrome Driver initialized");
+                }
+                driver = new ChromeDriver(chromeOptions);
+                break;
+
+            case "firefox":
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                if (headlessExecution) {
+                    firefoxOptions.addArguments("--headless");
+                    System.out.println("Headless Firefox Driver initialized");
+                }
+                driver = new FirefoxDriver(firefoxOptions);
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unsupported browser: " + browserName);
         }
-        if(maximize){
+
+        if (maximize) {
             driver.manage().window().maximize();
         }
-        return driver; }
+
+        System.out.println("Browser initialized successfully: " + browserName);
+        return driver;
+    }
 }
