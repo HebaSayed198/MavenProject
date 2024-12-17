@@ -7,7 +7,7 @@ on:
         description: 'Path to Tests to be Executed'
         default: ''
   schedule:
-    - cron:  '40 10 * * *' 
+    - cron:  '55 10 * * *' 
    
   pull_request:
     branches:
