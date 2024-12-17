@@ -38,7 +38,11 @@ jobs:
         continue-on-error: true
         run: mvn test "-DbrowserType=chrome" "-Dallure.results.directory=target/allure-results" "-DheadlessExecution=true" "-Dtest=${{ github.event.inputs.testsPath }}"
 
-          
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure-Report-Chrome-Linux
+          path: target/allure-results     
 
   E2E_Edge_Windows_Test:
     runs-on: windows-latest
@@ -62,5 +66,9 @@ jobs:
       - name: Run Tests
         continue-on-error: true
         run: mvn test "-DbrowserType=edge" "-Dallure.results.directory=target/allure-results" "-DheadlessExecution=false" "-Dtest=${{ github.event.inputs.testsPath }}"
-
       
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure-Report-Edge-Windows
+          path: target/allure-results 
