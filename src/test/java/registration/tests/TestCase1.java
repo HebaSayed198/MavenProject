@@ -4,7 +4,7 @@ import Utilities.JsonFileManager;
 import Utilities.PropertiesReader;
 import io.qameta.allure.Severity;
 import org.openqa.selenium.WebDriver;
-import Utilities.DriverFacrory;
+import Utilities.DriverFactory;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,9 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import registration.pages.*;
-
-import static Utilities.DriverFacrory.initiateDriver;
-
+import static Utilities.DriverFactory.initializingDriver;
 public class TestCase1 {
     private WebDriver driver;
     private JsonFileManager jsonFileManager ;
@@ -28,7 +26,7 @@ public class TestCase1 {
     public void setup(){
 //        driver=new ChromeDriver();
 //        driver.manage().window().maximize();
-        driver = DriverFacrory.initiateDriver(System.getProperty("browserName"),true,Boolean.parseBoolean(System.getProperty("headless", "false")));
+        driver = DriverFactory.initializingDriver(System.getProperty("browserName"),Boolean.parseBoolean(System.getProperty("maxmize")),Boolean.parseBoolean(System.getProperty("headlessExecution")));
         jsonFileManager = new JsonFileManager("D:\\Users\\hiba.makboul\\Desktop\\RegistrationForm\\src\\test\\resources\\TestData.json");
         homePage = new HomePage(driver);
         signupOrLoginPage = new SignupOrLoginPage(driver);
