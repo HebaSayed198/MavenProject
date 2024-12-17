@@ -7,8 +7,7 @@ on:
         description: 'Path to Tests to be Executed'
         default: ''
   schedule:
-    - cron:  '20 10 17 12 2' # Run every 6hrs Sun-Thur
-
+    - cron:  '40 10 * * *' 
    
   pull_request:
     branches:
